@@ -4,23 +4,19 @@ import { gql } from "@apollo/client";
 
 // route to get logged in user's info (needs the token)
 export const QUERY_ME = gql`
-  query me {
-    me 
-    # me on line 8 is the data property. data.me from line 8. after we use the Query.{
-      _id
-      name
-      skills
-
-
+  query me  {
+  me {
+    username
+    bookCount
+    savedBooks {
+      authors
+      image
+      link
+      bookId
+      description
+      title
     }
   }
-`;
+}
 
-// export const getMe = (token) => {
-//     return fetch('/api/users/me', {
-//       headers: {
-//         'Content-Type': 'application/json',
-//         authorization: `Bearer ${token}`,
-//       },
-//     });
-//   };
+`

@@ -13,13 +13,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "concurrently": "^5.1.0",
-    "nodemon": "^2.0.3"
-  },
-  "dependencies": {
-   
-   
-    "graphql": "^16.3.0",
-    "mongoose": "^6.1.8"
+    "concurrently": "^5.1.0"
   }
 }

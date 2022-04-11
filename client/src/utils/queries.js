@@ -4,19 +4,20 @@ import { gql } from "@apollo/client";
 
 // route to get logged in user's info (needs the token)
 export const QUERY_ME = gql`
-  query me  {
-  me {
-    username
-    bookCount
-    savedBooks {
-      authors
-      image
-      link
-      bookId
-      description
-      title
+  query me {
+    me {
+      _id
+      username
+      email
+      bookCount
+      savedBooks {
+        authors
+        image
+        link
+        bookId
+        description
+        title
+      }
     }
   }
-}
-
-`
+`;

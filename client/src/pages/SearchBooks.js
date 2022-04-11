@@ -9,7 +9,7 @@ import {
   CardColumns,
 } from "react-bootstrap";
 
-import Auth from "../utils/auth";
+import AuthService from "../utils/auth";
 import { searchGoogleBooks } from "../utils/API";
 import { saveBookIds, getSavedBookIds } from "../utils/localStorage";
 import { useMutation } from "@apollo/client";
@@ -48,7 +48,7 @@ const SearchBooks = () => {
       }
 
       const { items } = await response.json();
-
+     
       const bookData = items.map((book) => ({
         bookId: book.id,
         authors: book.volumeInfo.authors || ["No author to display"],
@@ -56,7 +56,7 @@ const SearchBooks = () => {
         description: book.volumeInfo.description,
         image: book.volumeInfo.imageLinks?.thumbnail || "",
       }));
-
+      
       setSearchedBooks(bookData);
       setSearchInput("");
     } catch (err) {
@@ -70,7 +70,7 @@ const SearchBooks = () => {
     const bookToSave = searchedBooks.find((book) => book.bookId === bookId);
 
     // get token
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
+    const token = AuthService.loggedIn() ? AuthService.getToken() : null;
 
     if (!token) {
       return false;
@@ -81,7 +81,6 @@ const SearchBooks = () => {
         variables: { input: bookToSave },
       });
 
-      console.log(data);
       // if book successfully saves to user's account, save book id to state
       setSavedBookIds([...savedBookIds, bookToSave.bookId]);
     } catch (err) {
@@ -137,7 +136,7 @@ const SearchBooks = () => {
                   <Card.Title>{book.title}</Card.Title>
                   <p className="small">Authors: {book.authors}</p>
                   <Card.Text>{book.description}</Card.Text>
-                  {Auth.loggedIn() && (
+                  {AuthService.loggedIn() && (
                     <Button
                       disabled={savedBookIds?.some(
                         (savedBookId) => savedBookId === book.bookId
